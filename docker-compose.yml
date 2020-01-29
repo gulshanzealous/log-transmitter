@@ -6,6 +6,7 @@ services:
     build: .
     environment:
       PORT: 8080
-      LOG_GENERATOR_INTERVAL: 3000
+      LOG_GENERATOR_INTERVAL_MS: 3000
+      LOG_CLEAR_INTERVAL_MINS: 15
     ports:
       - "8080:8080"

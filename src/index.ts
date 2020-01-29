@@ -65,8 +65,8 @@ const emitterHandle = setInterval(
   () => {
     logSeeder();
   },
-  process.env.LOG_GENERATOR_INTERVAL
-    ? parseInt(process.env.LOG_GENERATOR_INTERVAL)
+  process.env.LOG_GENERATOR_INTERVAL_MS
+    ? parseInt(process.env.LOG_GENERATOR_INTERVAL_MS)
     : 3000
 );
 // clear logs every 15mins
@@ -74,8 +74,8 @@ const clearHandle = setInterval(
   () => {
     logClearer();
   },
-  process.env.LOG_GENERATOR_INTERVAL
-    ? parseInt(process.env.LOG_GENERATOR_INTERVAL)
+  process.env.LOG_CLEAR_INTERVAL_MINS
+    ? parseInt(process.env.LOG_CLEAR_INTERVAL_MINS) * 60 * 1000
     : 15 * 60 * 1000
 );
 
