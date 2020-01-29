@@ -3,7 +3,7 @@ import express from "express";
 import socket from "socket.io";
 import fs from "fs";
 import path from "path";
-import logSeeder from "./logSeeder";
+import { logSeeder, logClearer } from "./logGenerator";
 import Tailor from "./Tailor";
 
 const app: Express.Application = express();
@@ -11,11 +11,6 @@ const httpServer = http.createServer(app);
 const io = socket(httpServer);
 const logFilePath = path.join(__dirname, "../log.txt");
 const tail = new Tailor(logFilePath);
-
-// push logs into file every 3 seconds
-const emitterHandle = setInterval(() => {
-  logSeeder();
-}, 3000);
 
 // connect socket
 io.on("connection", function(socket) {
@@ -40,7 +35,6 @@ function emitTail(socket: socket.Socket) {
   try {
     tail.watch();
     tail.on("line", data => {
-      // console.log("datta : ", data);
       socket.emit("log", data);
     });
     tail.on("error", err => {
@@ -66,7 +60,26 @@ function stopTail(socket: socket.Socket) {
   }
 }
 
+// push logs into file every 3 seconds
+const emitterHandle = setInterval(
+  () => {
+    logSeeder();
+  },
+  process.env.LOG_GENERATOR_INTERVAL
+    ? parseInt(process.env.LOG_GENERATOR_INTERVAL)
+    : 3000
+);
+// clear logs every 15mins
+const clearHandle = setInterval(
+  () => {
+    logClearer();
+  },
+  process.env.LOG_GENERATOR_INTERVAL
+    ? parseInt(process.env.LOG_GENERATOR_INTERVAL)
+    : 15 * 60 * 1000
+);
+
 // listen to 8080
-httpServer.listen(8080, () => {
+httpServer.listen(process.env.PORT || 8080, () => {
   console.log("listening on 8080");
 });

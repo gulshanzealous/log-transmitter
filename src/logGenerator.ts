@@ -15,13 +15,25 @@ const sampleLogs = [
 ];
 
 // pick a random log from the object above and append to the log file
-export default function logSeeder() {
+export function logSeeder() {
   try {
     const dataToAppend =
       sampleLogs[Math.floor(Math.random() * sampleLogs.length)];
     fs.appendFile(logFilePath, `${dataToAppend}\n`, err => {
       if (err) throw err;
       // console.log("following log is chosen : ", dataToAppend);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// clear logs file
+export function logClearer() {
+  try {
+    fs.writeFile(logFilePath, "", err => {
+      if (err) throw err;
+      console.log("The file has been saved!");
     });
   } catch (e) {
     console.log(e);

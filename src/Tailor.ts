@@ -89,7 +89,7 @@ class Tailor extends events.EventEmitter {
         });
 
         rr.on("data", data => {
-          console.log(`readable : ${data}`);
+          console.log(`NEW LOG : ${data}`);
           this.emit("line", data);
         });
         rr.on("end", () => {
