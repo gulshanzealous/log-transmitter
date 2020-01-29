@@ -92,3 +92,47 @@ Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
 [nodemon] 2.0.2
 $ nodemon
 $ nodemon
+[nodemon] 2.0.2
+[nodemon] watching dir(s): src/**/*
+➜ yarn start:dev
+Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+$ nodemon
+[nodemon] 2.0.2
+$ nodemon
+[nodemon] to restart at any time, enter `rs`
+Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+[nodemon] starting `ts-node ./src/index.ts`
+[nodemon] watching dir(s): src/**/*
+[nodemon] watching extensions: ts,js
+[nodemon] watching extensions: ts,js
+[nodemon] watching extensions: ts,js
+[nodemon] watching dir(s): src/**/*
+➜ yarn start:dev
+Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+[nodemon] 2.0.2
+[nodemon] starting `ts-node ./src/index.ts`
+[nodemon] watching extensions: ts,js
+$ nodemon
+Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+➜ yarn start:dev
+yarn run v1.17.3
+➜ yarn start:dev
+[nodemon] 2.0.2
+[nodemon] to restart at any time, enter `rs`
+yarn run v1.17.3
+➜ yarn start:dev
+Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+[nodemon] to restart at any time, enter `rs`
+yarn run v1.17.3
+$ nodemon
+[nodemon] starting `ts-node ./src/index.ts`
+[nodemon] to restart at any time, enter `rs`
+➜ yarn start:dev
+➜ yarn start:dev
+yarn run v1.17.3
+yarn run v1.17.3
+[nodemon] watching dir(s): src/**/*
+[nodemon] to restart at any time, enter `rs`
+➜ yarn start:dev
+$ nodemon
+$ nodemon

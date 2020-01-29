@@ -6,7 +6,7 @@ import path from "path";
 import { logSeeder, logClearer } from "./logGenerator";
 import Tailor from "./Tailor";
 
-const app: Express.Application = express();
+const app = express();
 const httpServer = http.createServer(app);
 const io = socket(httpServer);
 const logFilePath = path.join(__dirname, "../log.txt");
@@ -78,6 +78,12 @@ const clearHandle = setInterval(
     ? parseInt(process.env.LOG_CLEAR_INTERVAL_MINS) * 60 * 1000
     : 15 * 60 * 1000
 );
+
+app.all("*", (_, res) => {
+  res
+    .status(200)
+    .json({ message: "Log transmitter server is up and healthy!" });
+});
 
 // listen to 8080
 httpServer.listen(process.env.PORT || 8080, () => {
