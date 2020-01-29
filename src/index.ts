@@ -3,40 +3,63 @@ import express from "express";
 import socket from "socket.io";
 import fs from "fs";
 import path from "path";
-import logEmitter from "./logEmitter";
-const logFilePath = path.join(__dirname, "../log.txt");
+import logSeeder from "./logSeeder";
+import Tailor from "./Tailor";
 
 const app: Express.Application = express();
 const httpServer = http.createServer(app);
 const io = socket(httpServer);
+const logFilePath = path.join(__dirname, "../log.txt");
+const tail = new Tailor(logFilePath);
 
-// push logs into file
+// push logs into file every 3 seconds
 const emitterHandle = setInterval(() => {
-  logEmitter();
-}, 1000);
+  logSeeder();
+}, 3000);
 
 // connect socket
 io.on("connection", function(socket) {
   console.log("socket is connected with client");
 
-  socket.on("start", function(data: string) {
-    console.log(data);
-  });
   socket.emit("start", "message emitted from server");
 
-  watchLogFile(socket);
+  // start emitting tail on start event
+  socket.on("start", function(data: string) {
+    console.log(data);
+    emitTail(socket);
+  });
+
+  // stop emitting logs on stop event
+  socket.on("stop", function() {
+    stopTail(socket);
+  });
 });
 
-// watch the logs file and push new logs to socket
-function watchLogFile(socket: any) {
+// use the Tailor class to start watching and push logs to socket
+function emitTail(socket: socket.Socket) {
   try {
-    fs.watchFile(logFilePath, (curr, prev) => {
-      console.log(`the current mtime is: ${curr.mtime}`);
-      console.log(`the previous mtime was: ${prev.mtime}`);
-      // console.log(curr);
-      // console.log(prev);
+    tail.watch();
+    tail.on("line", data => {
+      // console.log("datta : ", data);
+      socket.emit("log", data);
+    });
+    tail.on("error", err => {
+      console.log(err);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
 
-      socket.emit("log", "new log pushed");
+// use unwatch method from tailor to stop emitting logs to socket
+function stopTail(socket: socket.Socket) {
+  try {
+    tail.unwatch();
+    tail.on("line", data => {
+      socket.emit("log", data);
+    });
+    tail.on("error", err => {
+      console.log(err);
     });
   } catch (e) {
     console.log(e);

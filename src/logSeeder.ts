@@ -14,13 +14,14 @@ const sampleLogs = [
   "Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars"
 ];
 
-export default function logEmitter() {
+// pick a random log from the object above and append to the log file
+export default function logSeeder() {
   try {
     const dataToAppend =
-      sampleLogs[Math.floor(Math.random() * sampleLogs.length - 1) + 1];
+      sampleLogs[Math.floor(Math.random() * sampleLogs.length)];
     fs.appendFile(logFilePath, `${dataToAppend}\n`, err => {
       if (err) throw err;
-      console.log("following log is chosen : ", dataToAppend);
+      // console.log("following log is chosen : ", dataToAppend);
     });
   } catch (e) {
     console.log(e);
