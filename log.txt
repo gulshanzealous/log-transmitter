@@ -136,3 +136,21 @@ yarn run v1.17.3
 ➜ yarn start:dev
 $ nodemon
 $ nodemon
+Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+[nodemon] starting `ts-node ./src/index.ts`
+➜ yarn start:dev
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching extensions: ts,js
+[nodemon] watching dir(s): src/**/*
+➜ yarn start:dev
+[nodemon] starting `ts-node ./src/index.ts`
+[nodemon] to restart at any time, enter `rs`
+➜ yarn start:dev
+$ nodemon
+[nodemon] to restart at any time, enter `rs`
+yarn run v1.17.3
+➜ yarn start:dev
+➜ yarn start:dev
+Line 2:8:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+[nodemon] watching dir(s): src/**/*
+[nodemon] starting `ts-node ./src/index.ts`
